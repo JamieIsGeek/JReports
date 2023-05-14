@@ -1,0 +1,5 @@
+name: JReports
+version: '${project.version}'
+main: uk.jamieisgeek.jreports.JReports
+author: JamieIsGeek
+description: A reporting plugin for Bungeecord/Waterfall
