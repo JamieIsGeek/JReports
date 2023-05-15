@@ -1,0 +1,13 @@
+discord:
+  sendToDiscord: false # Set to true to enable Discord integration
+  webhook: https://discordapp.com/api/webhooks/1234567890/abcdefghijklmnopqrstuvwxyz # Discord webhook URL if you want to reports messages to Discord
+
+alertPermission: "jreports.alert" # Permission required to receive alerts when a report is submitted
+reportPermission: "jreports.report" # Permission required to submit a report
+reloadPermission: "jreports.reload" # Permission required to reload the plugin
+
+messages:
+  invalid-user: "Invalid user"
+  no-reason-provided: "No reason provided"
+  no-permission: "You do not have permission to use this command"
+  report-sent: "Report sent"
