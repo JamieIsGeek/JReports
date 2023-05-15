@@ -1,7 +1,11 @@
 package uk.jamieisgeek.jreports.Handlers;
 
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Content;
 import uk.jamieisgeek.jreports.JReports;
 
 import java.awt.*;
@@ -24,9 +28,15 @@ public class ReportHandler {
                 ChatColor.RED + ChatColor.BOLD + "Offender: " + ChatColor.YELLOW + offender + "\n" +
                 ChatColor.RED + ChatColor.BOLD + "Reporter: " + ChatColor.YELLOW + reporter + "\n" +
                 ChatColor.RED + ChatColor.BOLD + "Server: " + ChatColor.YELLOW + server + "\n" +
-                ChatColor.RED + ChatColor.BOLD + "Reason: " + ChatColor.YELLOW + reason + "\n";
+                ChatColor.RED + ChatColor.BOLD + "Reason: " + ChatColor.YELLOW + reason;
 
-        plugin.getProxy().getPlayers().stream().filter(player -> player.hasPermission(configHandler.getAlertPermission())).forEach(player -> player.sendMessage(new TextComponent(reportMessage)));
+        TextComponent connectMessage = new TextComponent(ChatColor.GREEN + "[Connect to Server]\n");
+        connectMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/server " + server));
+        connectMessage.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.GREEN + "Connect to offender's server").create()));
+        plugin.getProxy().getPlayers().stream().filter(player -> player.hasPermission(configHandler.getAlertPermission())).forEach(player -> {
+            player.sendMessage(new TextComponent(reportMessage));
+            player.sendMessage(connectMessage);
+        });
 
         plugin.getLogger().info(reportMessage);
     }
