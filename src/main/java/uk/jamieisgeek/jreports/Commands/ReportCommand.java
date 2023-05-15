@@ -31,19 +31,24 @@ public class ReportCommand extends Command implements TabExecutor {
             return;
         }
 
+        if(args.length == 0) {
+            player.sendMessage(new TextComponent(ChatColor.RED + "Invalid Arguments\n\nCorrect Usage: /report <player> <reason>"));
+            return;
+        }
+
         if(args[0] == null || plugin.getProxy().getPlayer(args[0])  == null) {
             player.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', configHandler.getMessage("invalid-user"))));
             return;
         }
 
-        if(args[1] == null) {
+        if(args.length == 1 || args[1] == null) {
             player.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', configHandler.getMessage("no-reason-provided"))));
             return;
         }
 
         ProxiedPlayer offenderPlayer = plugin.getProxy().getPlayer(args[0]);
 
-        reportHandler.createReport(offenderPlayer.getServer().getInfo().getName(), args[0], player.getName(), makeReason(args));
+        reportHandler.createReport(offenderPlayer.getServer().getInfo().getName(), args[0], player.getName(), makeReason(args), offenderPlayer.getUniqueId().toString());
         player.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', configHandler.getMessage("report-sent"))));
     }
 
@@ -62,7 +67,8 @@ public class ReportCommand extends Command implements TabExecutor {
             plugin.getProxy().getPlayers().forEach(player -> onlinePlayers.add(player.getName()));
 
             return onlinePlayers;
+        } else {
+            return List.of("");
         }
-        return null;
     }
 }
