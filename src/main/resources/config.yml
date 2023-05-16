@@ -6,8 +6,21 @@ alertPermission: "jreports.alert" # Permission required to receive alerts when a
 reportPermission: "jreports.report" # Permission required to submit a report
 reloadPermission: "jreports.reload" # Permission required to reload the plugin
 
+# Internal Placeholders for Report Alert Message
+# %offender% - The name of the player being reported
+# %reporter% - The name of the player submitting the report
+# %reason% - The reason for the report
+# %server% - The name of the server the report was submitted on
+
 messages:
   invalid-user: "Invalid user"
   no-reason-provided: "No reason provided"
   no-permission: "You do not have permission to use this command"
   report-sent: "Report sent"
+  reportAlert: |-
+    
+    &6New Report
+    &c&lOffender: &e%offender%
+    &c&lReporter: &e%reporter%
+    &c&lReason: &e%reason%
+    &c&lServer: &e%server%
