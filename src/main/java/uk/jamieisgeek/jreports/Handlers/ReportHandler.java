@@ -24,11 +24,7 @@ public class ReportHandler {
             sendToDiscord(server, offender, reporter, reason, uuid);
         }
 
-        String reportMessage = ChatColor.WHITE + "[" + ChatColor.BLUE + "JReports" + ChatColor.WHITE + "] " + ChatColor.GOLD + "New Player Report!\n\n" +
-                ChatColor.RED + ChatColor.BOLD + "Offender: " + ChatColor.YELLOW + offender + "\n" +
-                ChatColor.RED + ChatColor.BOLD + "Reporter: " + ChatColor.YELLOW + reporter + "\n" +
-                ChatColor.RED + ChatColor.BOLD + "Server: " + ChatColor.YELLOW + server + "\n" +
-                ChatColor.RED + ChatColor.BOLD + "Reason: " + ChatColor.YELLOW + reason;
+        String reportMessage = formatReportMessage(configHandler.getMessage("reportAlert"), offender, reporter, server, reason);
 
         TextComponent connectMessage = new TextComponent(ChatColor.GREEN + "[Connect to Server]\n");
         connectMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/server " + server));
@@ -59,5 +55,15 @@ public class ReportHandler {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String formatReportMessage(String reportMessage, String offender, String reporter, String server, String reason) {
+        String newMessage = ChatColor.translateAlternateColorCodes('&', reportMessage);
+        newMessage = newMessage.replaceAll("%offender%", offender);
+        newMessage = newMessage.replaceAll("%reporter%", reporter);
+        newMessage = newMessage.replaceAll("%server%", server);
+        newMessage = newMessage.replaceAll("%reason%", reason);
+
+        return newMessage;
     }
 }
